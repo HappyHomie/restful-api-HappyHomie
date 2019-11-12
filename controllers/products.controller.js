@@ -90,7 +90,7 @@ exports.updateProduct = function(req, res) {
 };
 
 // Update Async
-exports.updateProduct = async function(req, res) {
+/* exports.updateProduct = async function(req, res) {
   try {
     if (req.fields.price) {
       req.fields.price = parseFloat(req.fields.price);
@@ -113,7 +113,7 @@ exports.updateProduct = async function(req, res) {
     log.error(error.stack);
     res.status(500).end();
   }
-};
+}; */
 
 // Add/Create
 /* exports.createProduct = function(req, res) {
