@@ -14,8 +14,13 @@ const { log } = require("../middleware/logger");
 // Get all products ASYNC
 exports.getAllProducts = async function(req, res) {
   try {
+    let docs;
+    if(req.query.category) {
+      docs = await ProductRef.where("category", "==", "req.query.category").get();
+    } else {
+      docs = await ProductRef.get();
+    }
     const results = [];
-    const docs = await ProductRef.get();
     docs.forEach(doc => results.push(doc.data()));
     res.json(results);
   } catch (error) {
@@ -138,3 +143,18 @@ exports.createProduct = async function(req, res) {
     res.status(500).end();
   }
 };
+
+
+// Get product by category
+exports.getProductsByCategory = async function(req, res){
+  try {
+    const results = [];
+    if(req.query.category) {
+      const docs = await ProductRef.where("category", "==", "req.query.category").get();
+      docs.forEach(doc => results.push(doc.data()));
+    }
+  } catch (error) {
+    log.error(error.stack);
+    res.status(500).end();
+  }
+}
